@@ -1,18 +1,35 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock title %}
-
-{% block content %}
-    {% if messages %}
+<!-- {% if messages %}
     <ul class="messages">
         {% for message in messages %}
         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
     </ul>
-    {% endif %}
+    {% endif %}-->
+
+{% block content %}
+    <div class="col-lg-10 col-md-10 mx-auto">
     {% for post in object_list %}
-    <div class="post-entry">
-            <h2><a href="{{ post.get_absolute_url }}">{{ post.titulo }}</a></h2>
-            <p>{{ post.conteudo }} </p>
-    </div>
+        <div class="post-preview">
+            <a href="{{post.get_absolute_url}}">
+              <h2 class="post-title">
+               {{ post.titulo }}
+              </h2>
+              <h3 class="post-subtitle">
+                    {{ post.conteudo }}
+              </h3>
+            </a>
+            <p class="post-meta">Posted by
+                <a href="#">{{ post.autor }}</a>
+                on {{ post.publicado }}</p>
+        </div>
+        <hr>
     {% endfor %}
+        <div class="clearfix">
+          <a class="btn btn-primary float-left" href="#">Older Posts &rarr;</a>
+        </div>
+    </div>
 {% endblock content %}
+
+   
