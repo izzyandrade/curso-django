@@ -11,7 +11,7 @@
     {% endif %}
     <div class="container justify-content-center">
             <h2>{{ object.titulo }}</h2>
-            <p>{{ object.conteudo }} </p>
+            <p>{{ object.conteudo|safe }} </p>
             <br>
             <a href="{{ object.get_absolute_url_update }}" class="btn btn-light">+ Editar</a>
             <a href="{{ object.get_absolute_url_delete }}" class="btn btn-danger">Deletar</a>

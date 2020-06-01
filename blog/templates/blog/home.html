@@ -17,7 +17,7 @@
                {{ post.titulo }}
               </h2>
               <h3 class="post-subtitle">
-                    {{ post.conteudo }}
+                    {{ post.conteudo|safe|truncatechars_html:"200" }}
               </h3>
             </a>
             <p class="post-meta">Posted by

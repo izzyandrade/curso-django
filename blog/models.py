@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.text import slugify
 from django.db.models.signals import post_save
+from ckeditor.fields import RichTextField
 
 
 class PublishedManager(models.Manager):
@@ -20,6 +21,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = "Categoria"
         verbose_name_plural = "Categorias"
+        ordering = ["-criado"]
 
     def __str__(self):
         return self.nome
@@ -34,7 +36,7 @@ class Post(models.Model):
     autor  = models.ForeignKey(User, on_delete=models.CASCADE)
     categoria = models.ManyToManyField(Category, related_name="get_posts")
     imagem = models.ImageField(upload_to="blog", blank=True, null=True)
-    conteudo = models.TextField(verbose_name="Conteúdo")
+    conteudo = RichTextField(verbose_name="Conteúdo")
     publicado = models.DateTimeField(default=timezone.now)
     criado = models.DateTimeField(auto_now_add=True)
     alterado = models.DateTimeField(auto_now=True)
