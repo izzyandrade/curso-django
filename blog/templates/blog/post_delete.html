@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 {% block title %} Deletar Postagem {% endblock title %}
 
 {% block content %}
-<h1>Deletar Postagem</h1>
-<form action="" method="post">{% csrf_token %}
-    <p>Você tem certeza que deseja excluir o registro "{{ post.titulo }}"?</p>
-    <input type="submit" value="Confirmar">
-</form>
+<div class="container justify-content-center">
+    <div class="card"">
+            <div class="card-header">
+               <h4>EXCLUIR</h4>
+            </div>
+            <div class="card-body">
+                 <form action="" method="post">
+                    <p>Você tem certeza que deseja excluir o registro "{{ post.titulo }}"?</p>
+                    <button type="submit" class="btn btn-dark">CONFIRMAR</button>
+                 </form>
+            </div>
+    </div>
+</div>
 {% endblock content %}
+

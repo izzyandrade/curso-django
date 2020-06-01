@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 {% block title %} Blog - Detalhe {% endblock title %}
-
 {% block content %}
     {% if messages %}
     <ul class="messages">
@@ -9,11 +9,12 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <div class="post-entry">
+    <div class="container justify-content-center">
             <h2>{{ object.titulo }}</h2>
             <p>{{ object.conteudo }} </p>
+            <br>
+            <a href="{{ object.get_absolute_url_update }}" class="btn btn-light">+ Editar</a>
+            <a href="{{ object.get_absolute_url_delete }}" class="btn btn-danger">Deletar</a>
     </div>
-    <a href="{{ object.get_absolute_url_update }}">+ Editar</a>
-    <br>
-    <a href="{{ object.get_absolute_url_delete }}">Deletar</a>
+    
 {% endblock content %}

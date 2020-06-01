@@ -12,16 +12,29 @@ class PublishedManager(models.Manager):
         return super(PublishedManager, self).get_queryset()\
                                             .filter(status='publicado')
 
+class Category(models.Model):
+    nome = models.CharField(max_length=100)
+    publicado = models.DateTimeField(default=timezone.now)
+    criado = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
+
+    def __str__(self):
+        return self.nome
+
 class Post(models.Model):
     STATUS = (
         ('rascunho','Rascunho'),
         ('publicado','Publicado'),
     )
-    titulo = models.CharField(max_length=250)
+    titulo = models.CharField(verbose_name="Título", max_length=250)
     slug   = models.SlugField(max_length=250) #https://site.com/noticias/campeonato-brasileiro-2020/01/02/2020
-    autor  = models.ForeignKey(User,
-                               on_delete=models.CASCADE)
-    conteudo = models.TextField()
+    autor  = models.ForeignKey(User, on_delete=models.CASCADE)
+    categoria = models.ManyToManyField(Category, related_name="get_posts")
+    imagem = models.ImageField(upload_to="blog", blank=True, null=True)
+    conteudo = models.TextField(verbose_name="Conteúdo")
     publicado = models.DateTimeField(default=timezone.now)
     criado = models.DateTimeField(auto_now_add=True)
     alterado = models.DateTimeField(auto_now=True)
@@ -43,8 +56,7 @@ class Post(models.Model):
     class Meta:
         ordering = ('-publicado',)
 
-    def __str__(self):
-        return self.titulo
+
 
 @receiver(post_save, sender=Post)
 def insert_slug(sender, instance, **kwargs):
